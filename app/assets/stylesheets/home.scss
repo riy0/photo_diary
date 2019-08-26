@@ -1,0 +1,60 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  text-align: center;
+  background-image: url(/top-back.jpg);
+  color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+
+  nav {
+    background-color: rgba(255,255,255,0.1);
+  }
+}
+
+.top {
+
+}
+.omniauth-button {
+  margin: 0 auto;
+  width: 400px;
+  display: flex;
+}
+
+.facebook-back {
+  width: 200px;
+  border-radius: 25px;
+  background-color: #3C539A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 10px;
+  box-shadow: 0 0 8px gray;
+}
+
+.twitter-back {
+  width: 200px;
+  border-radius: 25px;
+  background-color: #71C0F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-left: 10px;
+  box-shadow: 0 0 8px gray;
+}
+
+.facebook-button {
+  padding: 5px 10px 5px 1px;
+  color: white;
+}
+
+.twitter-button {
+  padding: 5px 10px 5px 1px;
+  color: white;
+}
