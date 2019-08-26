@@ -1,4 +1,8 @@
-<h1>Travel Diary</h1>
-<p>Write your travel diary and share</p>
-
-<%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+<div class="top">
+  <h1>Travel Diary</h1>
+  <p>Write your travel diary and share</p>
+  <div class="omniauth-button">
+    Facebookログイン(Todo)
+  </div>
+  <%= link_to "mail signup", new_user_registration_path %>
+</div>

@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     passwords: "users/passwords",
     omniauth_callbacks: "users/omniauth_callbacks"
   }
+
   root to: 'home#top'
   get 'home/contact', as: :contact
   get 'home/about',as: :about
+
+  resources :users
 end
