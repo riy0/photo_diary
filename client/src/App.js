@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 
 import { listLogEntries } from './API';
+import LogEntryForm from './LogEntryForm';
 
 const App = () => {
+  const [addEntryLocation, setAddEntryLocation] = useState(null);
   const [logEntries, setLogEntries] = useState([]); 
   const [showPopup, setShowPopup] = useState([]);
   const [viewport, setViewport] = useState({
@@ -22,7 +24,11 @@ const App = () => {
   }, []);
 
   const showAddMarkerPopup = (event) => {
-    event.srcEvent.stopPropagation();
+    const [ latitude, longitude] = event.lngLat;
+    setAddEntryLocation({
+      latitude,
+      longitude,
+    });
   };
   return (
     <ReactMapGL
@@ -75,6 +81,36 @@ const App = () => {
             }
           </>
         ))
+      }
+      {
+        addEntryLocation ? (
+          <>
+          <Marker
+            latitude={entry.latitude}
+            longitude={entry.longitude}
+          >
+            <div>
+              <img 
+                className="marker" 
+                src="https://i.imgur.com/y0G5YTX.png"
+                alt="marker"
+              />
+            </div>
+          </Marker>
+          <Popup
+            latitude={addEntryLocation.latitude}
+            longitude={addEntryLocation.longitude}
+            closeButton={true}
+            closeOnClick={false}
+            dynamicPosition={true}
+            onClose={() => setAddEntryLocation(null)}
+            anchor="top" >
+            <div className="popup">
+              <LogEntryForm />
+            </div>
+          </Popup>
+          </>
+        ) : null
       }
     </ReactMapGL>
   );
