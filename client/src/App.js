@@ -11,16 +11,18 @@ const App = () => {
   const [viewport, setViewport] = useState({
     width: '100vw',
     height: '100vh',
-    latitude: 37.6,
-    longitude: -95.5,
+    latitude: 123,
+    longitude: 154.5,
     zoom: 0
   });
 
+  const getEntries = async () => {
+    const logEntries = await listLogEntries();
+    setLogEntries(logEntries);
+  };
+
   useEffect(() => {
-    (async () => {
-      const logEntries = await listLogEntries();
-      setLogEntries(logEntries);
-    })();
+    getEntries();
   }, []);
 
   const showAddMarkerPopup = (event) => {
@@ -40,14 +42,12 @@ const App = () => {
     >
       {
         logEntries.map(entry => (
-          <>
+          < React.Fragment key={entry._id}>
             <Marker
-            key={entry._id}
               latitude={entry.latitude}
               longitude={entry.longitude}
             >
-              <div
-                onClick = {() => setShowPopup({
+              <div onClick = {() => setShowPopup({
                   [entry._id]:true,
                 })}
               >
@@ -75,19 +75,20 @@ const App = () => {
                     <h3>{entry.title}</h3>
                     <p>{entry.comments}</p>
                     <small>{new Date(entry.vistDate).toLocaleDateString}</small>
+                    {entry.image && <img src={entry.image} alt = {entry.title} />}
                   </div>
                 </Popup>
               ) : null
             }
-          </>
+          </ React.Fragment>
         ))
       }
       {
         addEntryLocation ? (
           <>
           <Marker
-            latitude={entry.latitude}
-            longitude={entry.longitude}
+            latitude={addEntryLocation.latitude}
+            longitude={addEntryLocation.longitude}
           >
             <div>
               <img 
@@ -106,7 +107,10 @@ const App = () => {
             onClose={() => setAddEntryLocation(null)}
             anchor="top" >
             <div className="popup">
-              <LogEntryForm />
+              <LogEntryForm onClose={() => {
+                setAddEntryLocation(null);
+                getEntries();
+              }}location={addEntryLocation} />
             </div>
           </Popup>
           </>
