@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import{ createLogEntry } from './API'; 
+import { createLogEntry } from './API';
 
 const LogEntryForm = ({ location, onClose }) => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ const LogEntryForm = ({ location, onClose }) => {
       await createLogEntry(data);
       onClose();
     } catch (error) {
+      console.error(error);
       setError(error.message);
       setLoading(false);
     }
@@ -23,7 +24,7 @@ const LogEntryForm = ({ location, onClose }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="entry-form">
-      { error ? <h3>{error}</h3> : null }
+      { error ? <h3 className="error">{error}</h3> : null}
       <label htmlFor="title">Title</label>
       <input name="title" required ref={register} />
       <label htmlFor="comments">Comments</label>
@@ -32,9 +33,9 @@ const LogEntryForm = ({ location, onClose }) => {
       <textarea name="description" rows={3} ref={register}></textarea>
       <label htmlFor="image">Image</label>
       <input name="image" ref={register} />
-      <label htmlFor="visitDate">Visit Date</label>
+      <label htmlFor="visitDate">Date</label>
       <input name="visitDate" type="date" required ref={register} />
-      <button disabled={loading}>{loading ? 'loading' : 'New Entry!'}</button>
+      <button disabled={loading}>{loading ? 'Loading...' : 'NewEntry'}</button>
     </form>
   );
 };

@@ -1,12 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-  width: 100vw;
+  font-family: "Patrik Hand", cursive;
   overflow: hidden;
 }
 
@@ -16,7 +12,7 @@ body {
 }
 
 .popup {
-  max-width: 280px;
+  max-width: 400px;
   padding: 0.5rem;
 }
 
@@ -28,10 +24,34 @@ body {
   display: block;
 }
 
-.entry-form label, .entry-form input, .entry-form  textarea, .entry-form button {
-  font-size: 1rem;;
-  margin-right: 0.5rem 0;
-  display: block;
+.entry-form {
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
   width: 100%;
+  border: darkgreen;
 }
 
+.entry-form label {
+  display: block;
+}
+
+.entry-form button {
+  font-size: 0.8rem;
+  padding: 0.5rem 2.2rem;
+  margin-top: 1rem;
+  color: white;
+  display: block;
+
+  border-style: none;
+  border-radius: 1rem;
+
+  background: #bc4e9c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #bc4e9c, #f80759); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #bc4e9c, #f80759); 
+
+}
+
+.entry-form button:hover {
+  opacity: 0.8;
+}

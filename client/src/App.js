@@ -5,15 +5,15 @@ import { listLogEntries } from './API';
 import LogEntryForm from './LogEntryForm';
 
 const App = () => {
+  const [logEntries, setLogEntries] = useState([]);
+  const [showPopup, setShowPopup] = useState({});
   const [addEntryLocation, setAddEntryLocation] = useState(null);
-  const [logEntries, setLogEntries] = useState([]); 
-  const [showPopup, setShowPopup] = useState([]);
   const [viewport, setViewport] = useState({
     width: '100vw',
     height: '100vh',
-    latitude: 123,
-    longitude: 154.5,
-    zoom: 0
+    latitude: 38.681236,
+    longitude: 133.767125,
+    zoom:4.0
   });
 
   const getEntries = async () => {
@@ -26,36 +26,33 @@ const App = () => {
   }, []);
 
   const showAddMarkerPopup = (event) => {
-    const [ latitude, longitude] = event.lngLat;
+    const [ longitude, latitude ] = event.lngLat;
     setAddEntryLocation({
       latitude,
       longitude,
     });
   };
+
   return (
     <ReactMapGL
       {...viewport}
       mapStyle="mapbox://styles/riy0/ck6vgws4m0jhc1iqnuono8w9n"
-      mapboxApiAccessToken={process.env.CLIENT_MAPBOX_TOKEN}
+      mapboxApiAccessToken={process.env.REACT_APP_MAP_TOKEN}
       onViewportChange={setViewport}
       onDblClick={showAddMarkerPopup}
     >
       {
         logEntries.map(entry => (
-          < React.Fragment key={entry._id}>
+          <React.Fragment key={entry._id}>
             <Marker
               latitude={entry.latitude}
               longitude={entry.longitude}
             >
-              <div onClick = {() => setShowPopup({
-                  [entry._id]:true,
+              <div
+                onClick={() => setShowPopup({
+                  [entry._id]: true,
                 })}
               >
-                <img 
-                  className="marker" 
-                  src="https://i.imgur.com/y0G5YTX.png"
-                  alt="marker"
-                />
               </div>
             </Marker>
             {
@@ -66,21 +63,18 @@ const App = () => {
                   closeButton={true}
                   closeOnClick={false}
                   dynamicPosition={true}
-                  onClose={() => setShowPopup({
-                    showPopup,
-                    [entry._id]: false,
-                  })}
+                  onClose={() => setShowPopup({})}
                   anchor="top" >
                   <div className="popup">
                     <h3>{entry.title}</h3>
                     <p>{entry.comments}</p>
-                    <small>{new Date(entry.vistDate).toLocaleDateString}</small>
-                    {entry.image && <img src={entry.image} alt = {entry.title} />}
+                    <small>Visited on: {new Date(entry.visitDate).toLocaleDateString()}</small>
+                    {entry.image && <img src={entry.image} alt={entry.title} />}
                   </div>
                 </Popup>
               ) : null
             }
-          </ React.Fragment>
+          </React.Fragment>
         ))
       }
       {
@@ -90,13 +84,6 @@ const App = () => {
             latitude={addEntryLocation.latitude}
             longitude={addEntryLocation.longitude}
           >
-            <div>
-              <img 
-                className="marker" 
-                src="https://i.imgur.com/y0G5YTX.png"
-                alt="marker"
-              />
-            </div>
           </Marker>
           <Popup
             latitude={addEntryLocation.latitude}
@@ -110,7 +97,7 @@ const App = () => {
               <LogEntryForm onClose={() => {
                 setAddEntryLocation(null);
                 getEntries();
-              }}location={addEntryLocation} />
+              }} location={addEntryLocation} />
             </div>
           </Popup>
           </>
