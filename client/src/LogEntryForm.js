@@ -13,6 +13,7 @@ const LogEntryForm = () => {
       <input name="image" />
       <label for="visitDate">Visit Date</label>
       <input name="visitDate" type="date" />
+      <button>New Entry!</button>
     </form>
   );
 };
