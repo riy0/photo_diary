@@ -9,3 +9,12 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+
+.marker {
+  height: 20px;
+  width: 20px;
+}
+
+.popup {
+  max-width: 280px;
+}
