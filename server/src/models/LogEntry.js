@@ -7,7 +7,7 @@ const requiredNumber = {
   required: true,
 };
 
-const LogEntrySchema = new Schema ({
+const logEntrySchema = new Schema ({
   title: {
     type: String,
     required: true, 
@@ -39,6 +39,6 @@ const LogEntrySchema = new Schema ({
   timestamps: true,
 });
 
-const LogEntry = mongoose.model('Logentry', LogEntrySchema);
+const LogEntry = mongoose.model('LogEntry', logEntrySchema);
 
 module.exports = LogEntry;
