@@ -4,7 +4,6 @@ const LogEntry = require('../models/LogEntry');
 
 const router = Router();
 
-
 router.get('/', async (req, res, next) => {
   console.log('😇😇😇');
   try {
@@ -28,5 +27,6 @@ router.post('/', async (req, res, next) => {
     next(error);
   }
 });
+
 
 module.exports = router;
